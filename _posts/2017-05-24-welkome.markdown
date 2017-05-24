@@ -1,6 +1,0 @@
----
-title:  "Welcome to my blog!"
-date:   2017-06-23 10:00
-categories: [welcome]
-tags: [welcome]
----

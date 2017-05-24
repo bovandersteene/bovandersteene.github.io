@@ -1,10 +1,10 @@
 # Site settings
 title: Bo Vandersteene
-description: 'Bo Vandersteene'
-url: 'http://www.reibo.io'
-baseurl: '/'
+description: Full-stack software Developer. Coach people with the newest technologies
+url: http://www.reibo.io
+baseurl: '/reibo/'
 # google_analytics: 'UA-XXXXXX-X'
-# disqus_shortname: 'your-disqus-name'
+disqus_shortname: bovandersteene
 
 author:
   name: 'Bo Vandersteene'
@@ -16,7 +16,7 @@ author:
 defaults:
   -
     scope:
-      path: '/'
+      path: ''
       type: 'posts'
     values:
         layout: 'post'
