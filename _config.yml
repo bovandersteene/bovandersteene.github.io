@@ -2,7 +2,7 @@
 title: Bo Vandersteene
 description: Full-stack software Developer. Coach people with the newest technologies
 url: http://www.reibo.io
-baseurl: '/reibo/'
+baseurl: '/'
 # google_analytics: 'UA-XXXXXX-X'
 disqus_shortname: bovandersteene
 
