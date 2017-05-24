@@ -1,1 +1,38 @@
-theme: jekyll-theme-tactile
+# Site settings
+title: Bo Vandersteene
+description: 'Bo Vandersteene'
+url: 'http://www.reibo.io'
+baseurl: '/'
+# google_analytics: 'UA-XXXXXX-X'
+# disqus_shortname: 'your-disqus-name'
+
+author:
+  name: 'Bo Vandersteene'
+  email: bo@reibo.io
+  twitter_username: reibo_bo
+  github_username:  bo.vandersteene
+  linkedin_username:   bo.vandersteene
+
+defaults:
+  -
+    scope:
+      path: '/'
+      type: 'posts'
+    values:
+        layout: 'post'
+
+# Build settings
+destination: _site
+paginate: 10
+permalink: /:title/
+markdown: kramdown
+highlighter: rouge
+
+kramdown:
+  # use Github Flavored Markdown
+  input: GFM
+  # do not replace newlines by <br>s
+  hard_wrap: false
+
+gems: ['jekyll-paginate']
+exclude: ['README.md', 'Gemfile', 'Gemfile.lock', 'screenshot.png']
