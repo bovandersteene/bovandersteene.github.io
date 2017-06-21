@@ -1018,6 +1018,7 @@ ul {
 	list-style-type: disc; }
 
 code {
+	color: #dddddd;
 	padding: .1em .4em;
 	background: #e8f2fb;
 	border: 1px solid #c9e1f6;

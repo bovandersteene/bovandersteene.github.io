@@ -1,6 +1,6 @@
 # Site settings
 title: Bo Vandersteene
-description: Full-stack software Developer. Coach people with the newest technologies
+description: Software architect. Coach people with the newest technologies
 url: http://www.reibo.io
 baseurl: '/'
 # google_analytics: 'UA-XXXXXX-X'
@@ -36,3 +36,7 @@ kramdown:
 
 gems: ['jekyll-paginate']
 exclude: ['README.md', 'Gemfile', 'Gemfile.lock', 'screenshot.png']
+
+# Set the Sass partials directory, as we're using @imports
+sass:
+  style: :expanded # You might prefer to minify using :compressed

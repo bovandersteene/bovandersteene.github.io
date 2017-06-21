@@ -3,24 +3,116 @@
   <channel>
     <title>Bo Vandersteene</title>
     <description>Full-stack software Developer. Coach people with the newest technologies</description>
-    <link>http://www.reibo.io/reibo//</link>
-    <atom:link href="http://www.reibo.io/reibo//feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 24 May 2017 10:30:51 +0200</pubDate>
-    <lastBuildDate>Wed, 24 May 2017 10:30:51 +0200</lastBuildDate>
+    <link>http://www.reibo.io//</link>
+    <atom:link href="http://www.reibo.io//feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Wed, 21 Jun 2017 10:49:11 +0200</pubDate>
+    <lastBuildDate>Wed, 21 Jun 2017 10:49:11 +0200</lastBuildDate>
     <generator>Jekyll v3.0.2</generator>
     
       <item>
-        <title>Welcome to reibo!</title>
-        <description>&lt;p&gt;Welcome to our blog.&lt;/p&gt;
+        <title>Configure environment variable in Angular</title>
+        <description>&lt;p&gt;Your environment variables need to come from a different place than environment.prod.js or environment.dev.js, because they are variable.
+The endpoints depends on data that is configured on the different backend systems.&lt;/p&gt;
+
+&lt;h1 id=&quot;add-a-config-service&quot;&gt;Add a config service&lt;/h1&gt;
+&lt;p&gt;We need a config service, so we can send a request to an url, to provide us the information about the configuration.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@Injectable()
+export class ConfigService { 
+  config: Configuration;
+
+  constructor(private http: Http) {
+  }
+
+  load() {
+    return new Promise((resolve, reject) =&amp;gt; {
+          this.http.get(&#39;/assets/environment.json&#39;)
+            .subscribe(config =&amp;gt; {
+                this.config = config.json();
+                resolve(true);
+              },
+              _ =&amp;gt; {
+                console.error(&#39;Configuration failed to load&#39;);
+                reject(true);
+              });
+        });
+  }
+
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;The response of the configuration file needs to be of the type &lt;em&gt;application/json&lt;/em&gt;.
+Important here is to use &lt;strong&gt;Promise&lt;/strong&gt;, in the configuration in the next section, we use &lt;strong&gt;APP_INITIALIZER&lt;/strong&gt;, which need an Promise, Observable will not work in this case.&lt;/p&gt;
+
+&lt;h1 id=&quot;let-your-application-use-the-service&quot;&gt;Let your application use the service&lt;/h1&gt;
+&lt;p&gt;In your &lt;em&gt;app.module.ts&lt;/em&gt; you provide the information on the service.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;export function loadConfig(config: ConfigService) {
+  return () =&amp;gt; config.load();
+}
+
+@NgModule({
+    // Other module configuration
+  providers: [
+    ConfigService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: loadConfig,
+      deps: [ ConfigService, Http ],
+      multi: true
+    },
+    // Other providers
+]})
+export class AppModule {
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;The configuration is loaded at App initialization time. Nothing else will be done until the configuration have been loaded successfull.&lt;/p&gt;
+
+&lt;h3 id=&quot;appinitializer-and-promise&quot;&gt;APP_INITIALIZER and Promise&lt;/h3&gt;
+&lt;p&gt;When you provide a loader on app initialization, which can causes delay f.e. a http call, where you need to wait unti the call is finished.
+You need to use promises, to define when your call is finished or not. Angular does not provide app initialization with observables.&lt;/p&gt;
+
+&lt;h1 id=&quot;create-a-custom-http-service-that-use-your-configuration&quot;&gt;Create a custom http service that use your configuration&lt;/h1&gt;
+&lt;p&gt;You have configured custom endpoints on your server. These endpoints depends on the server you are working on.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@Injectable()
+export class HttpService {
+
+  constructor(private http: Http, 
+              private configService: ConfigService) {
+  }
+
+  get(url: string): any { 
+    return this.http.get(`${this.configService.config.api_url}${url}`)
+      .map((response: Response) =&amp;gt; response.json());
+  }
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;You can use the configuration also in other services. Depending on what you provide in your configuration files.&lt;/p&gt;
+
+&lt;h1 id=&quot;versions&quot;&gt;Versions&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;Angular 4.2.2&lt;/li&gt;
+  &lt;li&gt;Typescript &amp;gt; 2&lt;/li&gt;
+&lt;/ul&gt;
 </description>
-        <pubDate>Tue, 23 May 2017 00:00:00 +0200</pubDate>
-        <link>http://www.reibo.io/reibo//welcome-to-reibo/</link>
-        <guid isPermaLink="true">http://www.reibo.io/reibo//welcome-to-reibo/</guid>
+        <pubDate>Tue, 20 Jun 2017 00:00:00 +0200</pubDate>
+        <link>http://www.reibo.io//configurable-environment-in-angular/</link>
+        <guid isPermaLink="true">http://www.reibo.io//configurable-environment-in-angular/</guid>
         
-        <category>reibo</category>
+        <category>angular</category>
+        
+        <category>angular2</category>
+        
+        <category>environment</category>
+        
+        <category>configuration</category>
         
         
-        <category>reibo</category>
+        <category>angular</category>
         
       </item>
     
